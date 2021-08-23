@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     # Libs
     'rest_framework',
     # Apps
-    'sobrevivente',
     'relatorios',
+    'sobrevivente',
 ]
 
 MIDDLEWARE = [
