@@ -82,8 +82,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         "NAME": "rssz",
-        "USER": "postgres",
-        "PASSWORD": "senha",
+        "USER": "seek",
+        "PASSWORD": "pw",
         "HOST": "127.0.0.1",
         "PORT": 5432,
     }
