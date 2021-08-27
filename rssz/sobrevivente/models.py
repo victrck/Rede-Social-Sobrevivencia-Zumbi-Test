@@ -40,13 +40,15 @@ class Item(models.Model):
 class Inventario(models.Model):
 
     sobrevivente = models.ForeignKey(Sobrevivente, verbose_name=(
-        "Sobrevivente"), on_delete=models.CASCADE)
+        "Sobrevivente"), on_delete=models.CASCADE, null=False,
+        blank=False)
 
     item = models.ForeignKey(Item, verbose_name=(
-        "Item"), on_delete=models.CASCADE)
+        "Item"), on_delete=models.CASCADE, null=False,
+        blank=False)
 
     quantidade = models.PositiveIntegerField(verbose_name=(
-        "Item"), blank=False, null=False)
+        "Quantidade"), blank=False, null=False)
 
     def __str__(self):
         return self.sobrevivente.name
@@ -55,20 +57,10 @@ class Inventario(models.Model):
 class SinalizarContaminado(models.Model):
 
     sinalizado_por = models.ForeignKey(
-        Sobrevivente,
-        on_delete=models.CASCADE,
-        related_name="sinalizado_por",
-        null=False,
-        blank=False
-    )
+        Sobrevivente, on_delete=models.CASCADE, related_name="sinalizado_por", null=False, blank=False)
 
     possivel_infectado = models.ForeignKey(
-        Sobrevivente,
-        on_delete=models.CASCADE,
-        related_name="possivel_infectado",
-        null=False,
-        blank=False
-    )
+        Sobrevivente, on_delete=models.CASCADE, related_name="possivel_infectado", null=False, blank=False)
 
     def __str__(self):
         return "Sinalizado por: " + self.sinalizado_por.nome + " - Possivel Infectado: " + self.possivel_infectado.nome

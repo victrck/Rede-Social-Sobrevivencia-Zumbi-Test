@@ -2,17 +2,23 @@ from sobrevivente.views import SinalizarContaminadoViewSet
 from sobrevivente.views import SobreviventesListandCreate
 from sobrevivente.views import ItemListandCreate
 from sobrevivente.views import SobreviventeLocationUpdate
+from sobrevivente.views import InventarioViewSet
 from django.urls import path
 
 urlpatterns = [
-    path('cadastrar/', SobreviventesListandCreate.as_view(), name='Sobrevivente'),
-    path('item/', ItemListandCreate.as_view(), name='Item'),
-    path('localizacao/',
+    path("cadastrar-sobrevivente/",
+         SobreviventesListandCreate.as_view(), name="Sobrevivente"),
+    path("cadastrar-item/", ItemListandCreate.as_view(), name="Item"),
+    path("alterar-localizacao/",
          SobreviventeLocationUpdate.as_view({
-             'put': 'update'
-         }), name='localizacao'),
-    path('sinalizarinfectado/',
+             "put": "update"
+         }), name="localizacao"),
+    path("sinalizar-infectado/",
          SinalizarContaminadoViewSet.as_view({
-             'post': 'create'
-         }), name='sinalizarinfectado'),
+             "post": "create"
+         }), name="Sinalizar_infectado"),
+    path("trocar-itens/",
+         InventarioViewSet.as_view({
+             "post": "create"
+         }), name="Realizar_troca"),
 ]
