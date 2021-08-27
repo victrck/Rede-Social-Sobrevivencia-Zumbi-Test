@@ -21,27 +21,17 @@ entre humanos não infectados.
   - Exemplo de Entrada:   
     ```
     {
-    "nome": "seek",
-
-    "idade": 23,
-
-    "sexo": "Masculino",
-
-    "latitude": "17889°",
-
-    "longitude": "1532°",
-
-    "inventario": [
-
-        {
-
+        "nome": "seek",
+        "idade": 23,
+        "sexo": "Masculino",
+        "latitude": "17889°",
+        "longitude": "1532°",
+        "inventario": [
+          {
             "item": "Agua", 
-
             "quantidade": 1
-
-        }
-    ]
-
+          }
+        ]
     }
     ```
     Campos:
@@ -59,11 +49,8 @@ entre humanos não infectados.
   - Exemplo de Entrada:   
     ```
     {
-
-    "nome": "Agua",
-
-    "pontos": 1
-
+        "nome": "Agua",
+        "pontos": 1
     }
     ```
     Campos:
@@ -75,11 +62,8 @@ entre humanos não infectados.
   - Exemplo de Entrada:   
     ```
     {
-
     "latitude": "70°",
-
     "longitude": "90°"
-
     }
     ```
     Campos:
@@ -93,7 +77,6 @@ entre humanos não infectados.
     {
     "sinalizado_por": 1,
     "possivel_infectado": 2
-
     }
     ```
     Campos:
