@@ -1,8 +1,8 @@
-from rest_framework import status
-from rest_framework import viewsets
-from rest_framework.response import Response
 from sobrevivente.models import Sobrevivente, Inventario, Item
 from sobrevivente.serializers import SobreviventeSerializer
+
+from rest_framework import status, viewsets
+from rest_framework.response import Response
 
 
 class InfectadosViewSet(viewsets.ModelViewSet):
@@ -21,10 +21,7 @@ class InfectadosViewSet(viewsets.ModelViewSet):
         response = {"sobreviventes_infectados": quantidade_infectados,
                     "porcentagem": porcentagem_string}
 
-        return Response(
-            data={"detalhes": response},
-            status=status.HTTP_200_OK
-        )
+        return Response(data={"detalhes": response}, status=status.HTTP_200_OK)
 
 
 class NaoInfectadosViewSet(viewsets.ModelViewSet):
@@ -43,10 +40,7 @@ class NaoInfectadosViewSet(viewsets.ModelViewSet):
         response = {"Sobreviventes_Nao_Infectados": quantidade_nao_infectados,
                     "Porcentagem": porcentagem}
 
-        return Response(
-            data={"detalhes": response},
-            status=status.HTTP_200_OK
-        )
+        return Response(data={"detalhes": response}, status=status.HTTP_200_OK)
 
 
 class RecursoporSobreviventeViewSet(viewsets.ModelViewSet):
@@ -74,10 +68,7 @@ class RecursoporSobreviventeViewSet(viewsets.ModelViewSet):
                 "Item": nome_item, "Quantidade": quantidade_disponivel, "Media_por_Sobrevivente": media}
             response.append(media_sobrevivente)
 
-        return Response(
-            data={"detalhes": response},
-            status=status.HTTP_200_OK
-        )
+        return Response(data={"detalhes": response}, status=status.HTTP_200_OK)
 
 
 class PontosperdidosViewSet(viewsets.ModelViewSet):
@@ -105,7 +96,4 @@ class PontosperdidosViewSet(viewsets.ModelViewSet):
 
         response = {"Total_Pontos_Perdidos": quant_pontos_perdidos_total,
                     "Detalhes": pontos_perdidos_list}
-        return Response(
-            data=response,
-            status=status.HTTP_200_OK
-        )
+        return Response(data=response, status=status.HTTP_200_OK)

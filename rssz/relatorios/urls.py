@@ -1,4 +1,5 @@
 from django.urls import path
+
 from relatorios.views import InfectadosViewSet, NaoInfectadosViewSet, RecursoporSobreviventeViewSet, PontosperdidosViewSet
 
 urlpatterns = [

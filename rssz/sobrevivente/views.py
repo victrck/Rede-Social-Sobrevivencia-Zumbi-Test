@@ -1,11 +1,8 @@
-from sobrevivente.serializers import InventarioSerializer
+from sobrevivente.serializers import InventarioSerializer, SobreviventeSerializer, ItemSerializer, SinalizarContaminadoSerializer
 from sobrevivente.models import Item, Sobrevivente, Inventario, SinalizarContaminado
-from sobrevivente.serializers import SobreviventeSerializer
-from sobrevivente.serializers import ItemSerializer
-from sobrevivente.serializers import SinalizarContaminadoSerializer
+
 from rest_framework import generics, status, viewsets
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 
 class SobreviventesListandCreate(generics.ListCreateAPIView):
@@ -18,10 +15,7 @@ class SobreviventesListandCreate(generics.ListCreateAPIView):
             novo_sobrevivente = Sobrevivente.objects.create(nome=self.request.data.get("nome", None), idade=self.request.data.get(
                 "idade", None), sexo=self.request.data.get("sexo", None), latitude=self.request.data.get("latitude", None), longitude=self.request.data.get("longitude", None))
         except:
-            return Response(
-                data={"Detalhes": "Error! Sobrevivente com dados faltando!"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response(data={"Detalhes": "Error! Sobrevivente com dados faltando!"}, status=status.HTTP_400_BAD_REQUEST)
 
         inventario = self.request.data.get("inventario", None)
         if inventario != None:
@@ -30,10 +24,7 @@ class SobreviventesListandCreate(generics.ListCreateAPIView):
                 Inventario.objects.create(
                     quantidade=i["quantidade"], item=item, sobrevivente=novo_sobrevivente)
 
-        return Response(
-            data={"Detalhes": "Sobrevivente Cadastrado com Sucesso"},
-            status=status.HTTP_201_CREATED
-        )
+        return Response(data={"Detalhes": "Sobrevivente Cadastrado com Sucesso"}, status=status.HTTP_201_CREATED)
 
 
 class ItemListandCreate(generics.ListCreateAPIView):
@@ -48,15 +39,9 @@ class ItemListandCreate(generics.ListCreateAPIView):
             serializer_item = ItemSerializer(data=item_data)
             serializer_item.is_valid(raise_exception=True)
             serializer_item.save()
-            return Response(
-                data={"Detalhes": "Item Cadastrado com Sucesso"},
-                status=status.HTTP_201_CREATED
-            )
+            return Response(data={"Detalhes": "Item Cadastrado com Sucesso"}, status=status.HTTP_201_CREATED)
         except:
-            return Response(
-                data={"Detalhes": "Error! Item com dados faltando ou já cadastrado."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response(data={"Detalhes": "Error! Item com dados faltando ou já cadastrado."}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class SobreviventeLocationUpdate(viewsets.ModelViewSet):
@@ -72,15 +57,9 @@ class SobreviventeLocationUpdate(viewsets.ModelViewSet):
                 sobrevivente, data=request.data, partial=True)
             serializer_sobrevivente.is_valid(raise_exception=True)
             serializer_sobrevivente.save()
-            return Response(
-                data={"Detalhes": "Atualização de localização realizada."},
-                status=status.HTTP_200_OK
-            )
+            return Response(data={"Detalhes": "Atualização de localização realizada."}, status=status.HTTP_200_OK)
         except:
-            return Response(
-                data={"Detalhes": "Sobrevivente não encontrado!"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response(data={"Detalhes": "Sobrevivente não encontrado!"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class SinalizarContaminadoViewSet(viewsets.ModelViewSet):
@@ -92,18 +71,12 @@ class SinalizarContaminadoViewSet(viewsets.ModelViewSet):
 
         try:
             if self.request.data.get("sinalizado_por", None) == self.request.data.get("possivel_infectado", None):
-                return Response(
-                    data={"Detalhes": "Verifique os campos informados."},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+                return Response(data={"Detalhes": "Verifique os campos informados."}, status=status.HTTP_400_BAD_REQUEST)
             sobrevivente_sinaliza = Sobrevivente.objects.get(
                 id=self.request.data.get("sinalizado_por", None), infectado=False)
         except:
             return Response(
-                data={
-                    "Detalhes": " O sobrevivente que está sinalizando não existe ou está infectado. "},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+                data={"Detalhes": " O sobrevivente que está sinalizando não existe ou está infectado. "}, status=status.HTTP_400_BAD_REQUEST)
         verificar_quant_relatos = SinalizarContaminado.objects.filter(
             possivel_infectado=self.request.data.get("possivel_infectado", None)).count()
         if verificar_quant_relatos < 3:
@@ -122,21 +95,12 @@ class SinalizarContaminadoViewSet(viewsets.ModelViewSet):
                 serializer_sobrevivente.is_valid(raise_exception=True)
                 serializer_sobrevivente.save()
                 return Response(
-                    data={
-                        "Detalhes": "Sinalização de Infecção de sobrevivente realizada com sucesso!"},
-                    status=status.HTTP_201_CREATED
-                )
+                    data={"Detalhes": "Sinalização de Infecção de sobrevivente realizada com sucesso!"}, status=status.HTTP_201_CREATED)
             else:
                 return Response(
-                    data={
-                        "Detalhes": "Sinalização de Infecção de sobrevivente realizada com sucesso!"},
-                    status=status.HTTP_201_CREATED
-                )
+                    data={"Detalhes": "Sinalização de Infecção de sobrevivente realizada com sucesso!"}, status=status.HTTP_201_CREATED)
         else:
-            return Response(
-                data={"Detalhes": "Sobrevivente ja infectado."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response(data={"Detalhes": "Sobrevivente ja infectado."}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class InventarioViewSet(viewsets.ModelViewSet):
@@ -149,11 +113,7 @@ class InventarioViewSet(viewsets.ModelViewSet):
             id_sobrevivente1 = self.request.data["sobrevivente1"]["id_sobrevivente"]
             id_sobrevivente2 = self.request.data["sobrevivente2"]["id_sobrevivente"]
             if id_sobrevivente1 == id_sobrevivente2:
-                return Response(
-                    data={
-                        "Detalhes": "A troca não pode ser feita por 2 sobreviventes iguais."},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+                return Response(data={"Detalhes": "A troca não pode ser feita por 2 sobreviventes iguais."}, status=status.HTTP_400_BAD_REQUEST)
             sobrevivente1 = Sobrevivente.objects.get(
                 id=id_sobrevivente1, infectado=False)
             sobrevivente2 = Sobrevivente.objects.get(
@@ -172,11 +132,7 @@ class InventarioViewSet(viewsets.ModelViewSet):
                 inventario_sobrevivente1 = Inventario.objects.get(
                     item=item, sobrevivente=sobrevivente1)
                 if inventario_sobrevivente1 == None or inventario_sobrevivente1.quantidade < quantidade_item:
-                    return Response(
-                        data={
-                            "detalhes": "Sobrevivente1: Não Possui Recursos Suficientes para a Troca."},
-                        status=status.HTTP_400_BAD_REQUEST
-                    )
+                    return Response(data={"detalhes": "Sobrevivente1: Não Possui Recursos Suficientes para a Troca."}, status=status.HTTP_400_BAD_REQUEST)
 
             for x in itens_troca_sobrevivente2:
                 nome_item = x["item"]
@@ -187,11 +143,7 @@ class InventarioViewSet(viewsets.ModelViewSet):
                 inventario_sobrevivente2 = Inventario.objects.get(
                     item=item, sobrevivente=sobrevivente2)
                 if inventario_sobrevivente2 == None or inventario_sobrevivente2.quantidade < quantidade_item:
-                    return Response(
-                        data={
-                            "detalhes": "Sobrevivente2: Não Possui Recursos Suficientes para a Troca."},
-                        status=status.HTTP_400_BAD_REQUEST
-                    )
+                    return Response(data={"detalhes": "Sobrevivente2: Não Possui Recursos Suficientes para a Troca."}, status=status.HTTP_400_BAD_REQUEST)
 
             if pontos_sobrevivente1 == pontos_sobrevivente2:
                 for i in itens_troca_sobrevivente2:
@@ -245,13 +197,6 @@ class InventarioViewSet(viewsets.ModelViewSet):
                     if inventario_sobrevivente2 != None:
                         inventario_sobrevivente2.quantidade -= i["quantidade"]
                         inventario_sobrevivente2.save()
-                return Response(
-                    data={"detalhes": "Troca Realizada com Sucesso."},
-                    status=status.HTTP_200_OK
-                )
+                return Response(data={"detalhes": "Troca Realizada com Sucesso."}, status=status.HTTP_200_OK)
         except:
-            return Response(
-                data={
-                    "Detalhes": "Dados incompletos ou faltando. Verifique os dados informados."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response(data={"Detalhes": "Dados incompletos ou faltando. Verifique os dados informados."}, status=status.HTTP_400_BAD_REQUEST)

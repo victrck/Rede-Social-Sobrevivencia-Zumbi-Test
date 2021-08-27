@@ -1,8 +1,7 @@
 from sobrevivente.views import SinalizarContaminadoViewSet
 from sobrevivente.views import SobreviventesListandCreate
-from sobrevivente.views import ItemListandCreate
-from sobrevivente.views import SobreviventeLocationUpdate
-from sobrevivente.views import InventarioViewSet
+from sobrevivente.views import ItemListandCreate, InventarioViewSet, SobreviventeLocationUpdate
+
 from django.urls import path
 
 urlpatterns = [

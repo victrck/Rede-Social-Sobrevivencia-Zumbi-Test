@@ -1,7 +1,5 @@
-from sobrevivente.models import Sobrevivente
-from sobrevivente.models import Item
-from sobrevivente.models import Inventario
-from sobrevivente.models import SinalizarContaminado
+from sobrevivente.models import Sobrevivente, Item, Inventario, SinalizarContaminado
+
 from rest_framework import serializers
 
 
