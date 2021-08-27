@@ -6,7 +6,7 @@ from sobrevivente.serializers import SobreviventeSerializer
 
 
 class InfectadosViewSet(viewsets.ModelViewSet):
-    http_method_names = ['get']
+    http_method_names = ["get"]
     queryset = Sobrevivente.objects.all()
     serializer_class = SobreviventeSerializer
 
@@ -28,7 +28,7 @@ class InfectadosViewSet(viewsets.ModelViewSet):
 
 
 class NaoInfectadosViewSet(viewsets.ModelViewSet):
-    http_method_names = ['get']
+    http_method_names = ["get"]
     queryset = Sobrevivente.objects.all()
     serializer_class = SobreviventeSerializer
 
@@ -50,7 +50,7 @@ class NaoInfectadosViewSet(viewsets.ModelViewSet):
 
 
 class RecursoporSobreviventeViewSet(viewsets.ModelViewSet):
-    http_method_names = ['get']
+    http_method_names = ["get"]
     queryset = Sobrevivente.objects.all()
     serializer_class = SobreviventeSerializer
 
@@ -81,7 +81,7 @@ class RecursoporSobreviventeViewSet(viewsets.ModelViewSet):
 
 
 class PontosperdidosViewSet(viewsets.ModelViewSet):
-    http_method_names = ['get']
+    http_method_names = ["get"]
     queryset = Sobrevivente.objects.all()
     serializer_class = SobreviventeSerializer
 
