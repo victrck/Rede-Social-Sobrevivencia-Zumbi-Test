@@ -62,6 +62,7 @@ entre humanos não infectados.
   - Exemplo de Entrada:   
     ```
     {
+    "id_sobrevivente": 1,
     "latitude": "70°",
     "longitude": "90°"
     }
