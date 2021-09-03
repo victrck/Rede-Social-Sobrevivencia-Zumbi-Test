@@ -12,8 +12,13 @@ class SobreviventesListandCreate(generics.ListCreateAPIView):
 
     def create(self, request):
         try:
-            novo_sobrevivente = Sobrevivente.objects.create(nome=self.request.data.get("nome", None), idade=self.request.data.get(
-                "idade", None), sexo=self.request.data.get("sexo", None), latitude=self.request.data.get("latitude", None), longitude=self.request.data.get("longitude", None))
+            novo_sobrevivente = Sobrevivente.objects.create(
+                nome=self.request.data.get("nome", None),
+                idade=self.request.data.get("idade", None),
+                sexo=self.request.data.get("sexo", None),
+                latitude=self.request.data.get("latitude", None),
+                longitude=self.request.data.get("longitude", None)
+            )
         except:
             return Response(data={"Detalhes": "Error! Sobrevivente com dados faltando!"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -54,7 +59,7 @@ class SobreviventeLocationUpdate(viewsets.ModelViewSet):
             sobrevivente = Sobrevivente.objects.get(
                 id=self.request.data.get("id_sobrevivente", None))
             serializer_sobrevivente = SobreviventeSerializer(
-                sobrevivente, data=request.data, partial=True)
+                sobrevivente, data={"longitude": self.request.data.get("longitude", None), "latitude": self.request.data.get("latitude", None)}, partial=True)
             serializer_sobrevivente.is_valid(raise_exception=True)
             serializer_sobrevivente.save()
             return Response(data={"Detalhes": "Atualização de localização realizada."}, status=status.HTTP_200_OK)
